@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" id="searchDiv">
+    <h2>GitHub Repositories Search</h2>
+    <input type="text" class="form-control" id="query">
+    <br />
+    <button type="button" class="btn btn-primary" id="btn-search">Search</button>
+</div>
+
+<div class="jumbotron blue hidden">
+    <div class="avatarGallery locationsSearchResults" id="avatarGallery">
+
+
+    </div>
+</div>
+
+<div class="item template hidden" id="repo-item-template">
+    <img class="avatar" src="" alt="" />
+    <span class="label label-info" id=""></span>
+    <br />
+    <button type="button" class="btn btn-primary">Bookmark</button>
+</div>
+
+<div class="overlay"></div>
