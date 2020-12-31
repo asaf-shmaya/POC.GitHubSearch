@@ -3,7 +3,8 @@ app.searchUrl = 'https://localhost:44325/api/repo/search/min?';
 app.searchResults = [];
 
 var bookmarks = [];
-bookmarks.Url = 'https://localhost:44325/api/bookmarks';
+bookmarks.List = [];
+bookmarks.Url = 'https://localhost:44390/api/bookmarks';
 bookmarks.attachEventSet = function () {
     $('div.slick-list button.bookmark').click(function () {
         var id = $(this).attr('id');
@@ -17,6 +18,9 @@ bookmarks.attachEventSet = function () {
             },
             success: function (data) {
                 alert('Repository ' + id + ' bookmarked successfully!');
+                // REFRESH BOOKMARKS LIST
+                bookmarks.get();
+                bookmarks.show();
             },
             error: function (xhr, status, error) {
                 console.log('statusText: ' + xhr.statusText);
@@ -24,22 +28,27 @@ bookmarks.attachEventSet = function () {
         });
     });
 };
-bookmarks.get = function() {
+
+bookmarks.get = function () {
     $.ajax({
         method: 'GET',
         url: bookmarks.Url,
-        data: {  },
+        data: {},
         beforeSend: function (xhr) {
-            
+
         },
         success: function (data) {
-            
+            bookmarks.List = data;
         },
         error: function (xhr, status, error) {
             console.log('statusText: ' + xhr.statusText);
         }
     });
-}
+};
+
+bookmarks.show = function () {
+    $("div#bookmarks p").text(bookmarks.List);
+};
 
 
 var search = [];
@@ -126,6 +135,7 @@ $(function () {
     app.locationsSearchResults = $($("div.avatarGallery.locationsSearchResults")[0]);
     search.attachEvent();
     slickSettings.initialize();
+    bookmarks.show();
 });
 
 $(document).on({
