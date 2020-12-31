@@ -1,7 +1,46 @@
 ﻿var app = [];
 app.searchUrl = 'https://localhost:44325/api/repo/search/min?';
 app.searchResults = [];
-app.locationsSearchResults = '';
+
+var bookmarks = [];
+bookmarks.Url = 'https://localhost:44325/api/bookmarks';
+bookmarks.attachEventSet = function () {
+    $('div.slick-list button.bookmark').click(function () {
+        var id = $(this).attr('id');
+
+        $.ajax({
+            method: 'POST',
+            url: bookmarks.Url + '/' + id,
+            data: {},
+            beforeSend: function (xhr) {
+                
+            },
+            success: function (data) {
+                alert('Repository ' + id + ' bookmarked successfully!');
+            },
+            error: function (xhr, status, error) {
+                console.log('statusText: ' + xhr.statusText);
+            }
+        });
+    });
+};
+bookmarks.get = function() {
+    $.ajax({
+        method: 'GET',
+        url: bookmarks.Url,
+        data: {  },
+        beforeSend: function (xhr) {
+            
+        },
+        success: function (data) {
+            
+        },
+        error: function (xhr, status, error) {
+            console.log('statusText: ' + xhr.statusText);
+        }
+    });
+}
+
 
 var search = [];
 search.attachEvent = function () {
@@ -19,6 +58,7 @@ search.attachEvent = function () {
             success: function (data) {
                 app.searchResults = data;
                 search.populateResults(app.searchResults);
+                bookmarks.attachEventSet();
                 $('.jumbotron.blue').show();
             },
             error: function (xhr, status, error) {
@@ -40,10 +80,12 @@ search.populateResults = function (results) {
             // ASSIGN AVATAR 
             var avatar = $(itemTemplate).find("img.avatar");
             $(avatar[0]).attr("src", item.AvatarUrl)[0];
-            // ASSIGN REPOSITORY NAME
+            // ASSIGN REPOSITORY NAME AND ID
             var name = $(itemTemplate).find("span.label");
-            $(name[0]).attr('id', item.Id);
             $(name[0]).text(item.Name);
+            //
+            var bookmark = $(itemTemplate).find("button.bookmark");
+            $(bookmark[0]).attr('id', item.Id);
             // ATTACH TO DESIGNATED PLACE
             itemTemplate.appendTo(app.locationsSearchResults);
             // REMOVE THE HIDDEN CLASS

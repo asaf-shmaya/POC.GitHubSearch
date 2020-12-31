@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.GitHubSearch.Web", "POC.GitHubSearch.Web\POC.GitHubSearch.Web.csproj", "{1CC723FE-1EDE-42ED-A9AD-9933B9DB42DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B22D0965-26C8-4742-95D2-79316C31F423} = {B22D0965-26C8-4742-95D2-79316C31F423}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.GitHubSearch.Models", "POC.GitHubSearch.Models\POC.GitHubSearch.Models.csproj", "{BB984B4B-8FCC-4C77-837B-CA2B8452F9BB}"
 EndProject
